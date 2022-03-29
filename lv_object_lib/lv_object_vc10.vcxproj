@@ -13,6 +13,9 @@
   <ItemGroup>
     <ClCompile Include="lv_object_lib.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\lv_object_api\lv_object_api.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>lv_object</ProjectName>
     <ProjectGuid>{6030DDC0-AEC7-4FED-8061-655CAD44784D}</ProjectGuid>
