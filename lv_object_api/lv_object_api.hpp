@@ -79,6 +79,10 @@ namespace lv
 		{
 			if(this->ip) this->ip->_release();
 		};
+		size_t pointer() const
+		{
+			return (size_t)(dynamic_cast<IType*>(this->ip));
+		};
 		bool empty() const
 		{
 			return (this->ip == NULL);
@@ -95,9 +99,9 @@ namespace lv
 				this->ip = NULL;
 			}
 		};
-		size_t pointer() const
+		operator bool() const
 		{
-			return (size_t)(dynamic_cast<IType*>(this->ip));
+			return (this->ip != NULL);
 		};
 		TInterfaceHandle& operator =(const TInterfaceHandle& other)
 		{
@@ -153,6 +157,10 @@ namespace lv
 		{
 			if(this->ip) this->ip->_release_var(&(this->ip));
 		};
+		size_t pointer() const
+		{
+			return (size_t)(dynamic_cast<IType*>(this->ip));
+		};
 		bool empty() const
 		{
 			return (this->ip == NULL);
@@ -169,9 +177,9 @@ namespace lv
 				this->ip = NULL;
 			}
 		};
-		size_t pointer() const
+		operator bool() const
 		{
-			return (size_t)(dynamic_cast<IType*>(this->ip));
+			return (this->ip != NULL);
 		};
 		TWeakReferenceHandle& operator =(const TWeakReferenceHandle& other)
 		{

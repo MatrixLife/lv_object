@@ -2,22 +2,22 @@
 #include "IFloat_api.hpp"
 void main()
 {
-	IFloat* test_inst = NULL;
-	if(IFloatCreateInstance(&test_inst))
+	IFloat* inst = NULL;
+	if(IFloatCreateInstance(&inst))
 	{
-		test_inst->value(1234.5678f);
+		inst->value(1234.5678f);
 
-		lv::IWeakReference* weak_inst = NULL;
-		if(test_inst->_add_ref_var(&weak_inst))
+		lv::IWeakReference* weak_ptr = NULL;
+		if(inst->_add_ref_var(&weak_ptr))
 		{
-			cprintf("IFloat._type_id() = %s.\r\n", static_cast<IFloat*>(weak_inst)->_type_id());
-			cprintf("IFloat.value() = %f.\r\n", static_cast<IFloat*>(weak_inst)->value());
+			cprintf("IFloat._type_id() = %s.\r\n", static_cast<IFloat*>(weak_ptr)->_type_id());
+			cprintf("IFloat.value() = %f.\r\n", static_cast<IFloat*>(weak_ptr)->value());
 		}
 
-		test_inst->_release();
-		test_inst = NULL;
+		inst->_release();
+		inst = NULL;
 
-		if(weak_inst == NULL) cprintf("IFloat weak-reference is invalid.\r\n");
+		if(weak_ptr == NULL) cprintf("IFloat weak-reference is invalid.\r\n");
 	}
 	getch();
 };

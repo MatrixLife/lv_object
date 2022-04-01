@@ -2,16 +2,16 @@
 #include "IFloat_api.hpp"
 void main()
 {
-	IFloat* test_inst = NULL;
-	if(IFloatCreateInstance(&test_inst))
+	IFloat* inst = NULL;
+	if(IFloatCreateInstance(&inst))
 	{
-		test_inst->value(1234.5678f);
+		inst->value(1234.5678f);
 
-		cprintf("IFloat.type_id() = %s.\r\n", test_inst->_type_id());
-		cprintf("IFloat.value() = %f.\r\n", test_inst->value());
+		cprintf("IFloat.type_id() = %s.\r\n", inst->_type_id());
+		cprintf("IFloat.value() = %f.\r\n", inst->value());
 
-		test_inst->_release();
-		test_inst = NULL;
+		inst->_release();
+		inst = NULL;
 	}
 	getch();
 };
