@@ -10,8 +10,8 @@ void main()
 		lv::IWeakReference* weak_ptr = NULL;
 		if(inst->_add_ref_var(&weak_ptr))
 		{
-			cprintf("IFloat._type_id() = %s.\r\n", static_cast<IFloat*>(weak_ptr)->_type_id());
-			cprintf("IFloat.value() = %f.\r\n", static_cast<IFloat*>(weak_ptr)->value());
+			cprintf("weak_ptr->_type_id() = %s.\r\n", static_cast<IFloat*>(weak_ptr)->_type_id());
+			cprintf("weak_ptr->value() = %f.\r\n", static_cast<IFloat*>(weak_ptr)->value());
 		}
 
 		inst->_release();

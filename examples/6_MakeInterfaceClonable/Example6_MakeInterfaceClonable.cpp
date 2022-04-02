@@ -8,13 +8,13 @@ void main()
 	if(IFloatCreateInstance(&inst1))
 	{
 		inst1->value(0.123f);
-		cprintf("inst1.value() = %f.\r\n", inst1->value());
+		cprintf("inst1->value() = %f.\r\n", inst1->value());
 
 		inst1->_clone((lv::IInterface**)(&inst2));
-		cprintf("After cloned to inst2, inst2.value() = %f.\r\n", inst2->value());
+		cprintf("After cloned to inst2, inst2->value() = %f.\r\n", inst2->value());
 
 		inst1->_clone_t(&inst3);
-		cprintf("After cloned to inst3, inst3.value() = %f.\r\n", inst3->value());
+		cprintf("After cloned to inst3, inst3->value() = %f.\r\n", inst3->value());
 	}
 	if(inst1)
 	{
