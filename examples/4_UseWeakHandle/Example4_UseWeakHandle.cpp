@@ -10,8 +10,8 @@ void main()
 		IFloatWP weak_ref(inst);
 		if(weak_ref)// = "if(weak_ref.valid())"
 		{
-			cprintf("IFloat._type_id() = %s.\r\n", weak_ref->_type_id());
-			cprintf("IFloat.value() = %f.\r\n", weak_ref->value());
+			cprintf("weak_ref->_type_id() = %s.\r\n", weak_ref->_type_id());
+			cprintf("weak_ref->value() = %f.\r\n", weak_ref->value());
 		}
 
 		inst->_release();

@@ -24,9 +24,9 @@ namespace lv
 	struct ReferenceType: public object
 	{
 	private:
+		ReferenceType(const ReferenceType&) throw();
 		void* operator new[](const size_t) throw();
 		void operator delete[](void*) throw();
-		ReferenceType(const ReferenceType&) throw();
 		ReferenceType& operator =(const ReferenceType&) throw();
 	protected:
 		explicit ReferenceType(){};
@@ -130,10 +130,7 @@ namespace lv
 		{
 			return ((size_t)(this->ip) < (size_t)(other.ip));
 		};
-		IType* operator ->()
-		{
-			return dynamic_cast<IType*>(this->ip);
-		};
+		IType* operator ->() const { return dynamic_cast<IType*>(this->ip); };
 	};
 	template<typename IType> struct TWeakReferenceHandle: public ValueType
 	{
@@ -206,10 +203,27 @@ namespace lv
 		{
 			return (this->ip < other.ip);
 		};
-		IType* operator ->() const
-		{
-			return static_cast<IType*>(this->ip);
-		};
+		IType* operator ->() const { return static_cast<IType*>(this->ip); };
 	};
 }
+#if(__cplusplus >= 199711L)
+#include <memory>
+namespace lv
+{
+	struct IObject
+	{
+	private:
+		IObject(const IObject&) throw();
+		void* operator new[](size_t size) throw();
+		void operator delete[](void* inst) throw();
+		IObject& operator =(const IObject&) throw();
+	protected:
+		explicit IObject(){};
+	public:
+		virtual ~IObject(){};
+		virtual const char* _type_id();
+	};
+	typedef std::shared_ptr<IObject> IObjectHandle;
+}
+#endif
 #endif
