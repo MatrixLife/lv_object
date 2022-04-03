@@ -17,7 +17,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)lv_object_api"
-			IntermediateDirectory="$(SolutionDir)temporary\$(ProjectName)_$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)temporary\$(ProjectName)_vc8_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="0"
 			>
@@ -79,7 +79,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)lv_object_api"
-			IntermediateDirectory="$(SolutionDir)temporary\$(ProjectName)_$(PlatformName)_$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)temporary\$(ProjectName)_vc8_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="0"
 			WholeProgramOptimization="1"

@@ -1,7 +1,5 @@
 #pragma once
-#if(__cplusplus >= 199711L)
-
-#include <memory>
+#if (__cplusplus >= 201103L) || (_MSC_VER >= 1600)
 #include "lv_object_api.hpp"
 
 struct IFloatModern: public lv::IObject

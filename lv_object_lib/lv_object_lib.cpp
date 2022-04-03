@@ -18,27 +18,10 @@ namespace lv
 	{
 		return "lv.ValueType";
 	}
-	ReferenceType::ReferenceType(const ReferenceType&) throw()
-	{
-		throw std::exception();
-	}
-	void* ReferenceType::operator new[](const size_t) throw()
-	{
-		throw std::exception();
-	}
-	void ReferenceType::operator delete[](void*) throw()
-	{
-		throw std::exception();
-	}
-	ReferenceType& ReferenceType::operator =(const ReferenceType&) throw()
-	{
-		throw std::exception();
-	}
-	const char* ReferenceType::_type_id() const
-	{
-		return "lv.ReferenceType";
-	}
-#if(__cplusplus >= 199711L)
+}
+#if (__cplusplus >= 201103L) || (_MSC_VER >= 1600)
+namespace lv
+{
 	IObject::IObject(const IObject&) throw()
 	{
 		throw std::exception();
@@ -59,5 +42,5 @@ namespace lv
 	{
 		return "lv.IObject";
 	}
-#endif
 }
+#endif

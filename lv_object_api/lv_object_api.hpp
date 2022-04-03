@@ -21,19 +21,6 @@ namespace lv
 		virtual ~ValueType(){};
 		virtual const char* _type_id() const;
 	};
-	struct ReferenceType: public object
-	{
-	private:
-		ReferenceType(const ReferenceType&) throw();
-		void* operator new[](const size_t) throw();
-		void operator delete[](void*) throw();
-		ReferenceType& operator =(const ReferenceType&) throw();
-	protected:
-		explicit ReferenceType(){};
-	public:
-		virtual ~ReferenceType(){};
-		virtual const char* _type_id() const;
-	};
 	struct IInterface
 	{
 		virtual void _add_ref() = 0;
@@ -206,7 +193,7 @@ namespace lv
 		IType* operator ->() const { return static_cast<IType*>(this->ip); };
 	};
 }
-#if(__cplusplus >= 199711L)
+#if (__cplusplus >= 201103L) || (_MSC_VER >= 1600)
 #include <memory>
 namespace lv
 {
