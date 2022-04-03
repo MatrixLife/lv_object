@@ -8,9 +8,9 @@ struct IFloatModernImpl: public IFloatModern
 	virtual ~IFloatModernImpl();
 
 //------------------------------------------------------------------------------
-//Implement 'lv.IObject'.
+//Implement 'lv.object'.
 //------------------------------------------------------------------------------
-	virtual const char* _type_id();
+	virtual const char* _type_id() const;
 
 //------------------------------------------------------------------------------
 //Implement 'IFloat'.

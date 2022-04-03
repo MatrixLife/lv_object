@@ -21,19 +21,6 @@ namespace lv
 		virtual ~ValueType(){};
 		virtual const char* _type_id() const;
 	};
-	struct ReferenceType: public object
-	{
-	private:
-		ReferenceType(const ReferenceType&) throw();
-		void* operator new[](const size_t) throw();
-		void operator delete[](void*) throw();
-		ReferenceType& operator =(const ReferenceType&) throw();
-	protected:
-		explicit ReferenceType(){};
-	public:
-		virtual ~ReferenceType(){};
-		virtual const char* _type_id() const;
-	};
 	struct IInterface
 	{
 		virtual void _add_ref() = 0;
@@ -205,25 +192,90 @@ namespace lv
 		};
 		IType* operator ->() const { return static_cast<IType*>(this->ip); };
 	};
-}
-#if(__cplusplus >= 199711L)
-#include <memory>
-namespace lv
-{
-	struct IObject
+	template<typename TObject> struct handle_t
 	{
 	private:
-		IObject(const IObject&) throw();
-		void* operator new[](size_t size) throw();
-		void operator delete[](void* inst) throw();
-		IObject& operator =(const IObject&) throw();
-	protected:
-		explicit IObject(){};
+		struct _SafeRefCtx
+		{
+			size_t _refs;
+			object* _inst;
+			_SafeRefCtx(object* inst): _refs(0), _inst(inst) {};
+			_SafeRefCtx(TObject* inst): _refs(0), _inst(dynamic_cast<object*>(inst)) {};
+			~_SafeRefCtx(){ if(this->_inst) delete this->_inst; };
+			void _add_ref(){ this->_refs+= 1; };
+			void _release(){ if(this->_refs > 1) this->_refs-= 1; else delete this; };
+		};
+		_SafeRefCtx* cp;
 	public:
-		virtual ~IObject(){};
-		virtual const char* _type_id();
+		handle_t(): cp(NULL) {};
+		handle_t(const handle_t& other): cp(other.cp)
+		{
+			if(this->cp) this->cp->_add_ref();
+		};
+		handle_t(object* inst): cp(NULL)
+		{
+			if(dynamic_cast<TObject*>(inst))
+			{
+				this->cp = new _SafeRefCtx(inst);
+				this->cp->_add_ref();
+			}
+		};
+		handle_t(TObject* inst): cp(NULL)
+		{
+			if(dynamic_cast<object*>(inst))
+			{
+				this->cp = new _SafeRefCtx(inst);
+				this->cp->_add_ref();
+			}
+		};
+		~handle_t()
+		{
+			if(this->cp) this->cp->_release();
+		};
+		size_t pointer() const
+		{
+			return (this->cp)? (size_t)(this->cp->_inst): NULL;
+		};
+		bool empty() const
+		{
+			return (this->cp == NULL);
+		};
+		bool valid() const
+		{
+			return (this->cp != NULL);
+		};
+		void clear()
+		{
+			if(this->cp)
+			{
+				this->cp->_release();
+				this->cp = NULL;
+			}
+		};
+		operator bool() const
+		{
+			return (this->cp != NULL);
+		};
+		handle_t& operator =(const handle_t& other)
+		{
+			if(other.cp) other.cp->_add_ref();
+			if(this->cp) this->cp->_release();
+			this->cp = other.cp;
+			return (*this);
+		};
+		bool operator ==(const handle_t& other) const
+		{
+			return (this->pointer() == other.pointer());
+		};
+		bool operator !=(const handle_t& other) const
+		{
+			return (this->pointer() != other.pointer());
+		};
+		bool operator <(const handle_t& other) const
+		{
+			return (this->pointer() < other.pointer());
+		};
+		TObject* operator ->() const { if(this->cp) return dynamic_cast<TObject*>(this->cp->_inst); else return NULL; };
 	};
-	typedef std::shared_ptr<IObject> IObjectHandle;
 }
-#endif
 #endif

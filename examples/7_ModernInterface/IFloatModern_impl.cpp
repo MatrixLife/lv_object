@@ -5,7 +5,7 @@ IFloatModernImpl::IFloatModernImpl(): _Value(0.0f)
 IFloatModernImpl::~IFloatModernImpl()
 {
 }
-const char* IFloatModernImpl::_type_id()
+const char* IFloatModernImpl::_type_id() const
 {
 	return "IFloatModern";
 }

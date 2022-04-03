@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Example7_Cpp11ModernInterface.cpp" />
+    <ClCompile Include="Example7_ModernInterface.cpp" />
     <ClCompile Include="IFloatModern_impl.cpp" />
   </ItemGroup>
   <ItemGroup>
