@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="Example1_CreateInterface"
 	ProjectGUID="{27763B50-02A4-40D8-AAC5-7A20A1CE29D9}"
+	RootNamespace="Example1_CreateInterface"
 	>
 	<Platforms>
 		<Platform
@@ -15,7 +16,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)build_vc8_$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)build\vc8_$(PlatformName)_$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)temporary\$(ProjectName)_vc8_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"
@@ -92,7 +93,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)build_vc8_$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)build\vc8_$(PlatformName)_$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)temporary\$(ProjectName)_vc8_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"

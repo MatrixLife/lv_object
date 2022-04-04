@@ -13,15 +13,15 @@ void main()
 		inst2->value(0.456f);
 		inst3->value(0.789f);
 
-		cprintf("inst1->value() = %f.\r\n", inst1->value());
-		cprintf("inst2->value() = %f.\r\n", inst2->value());
-		cprintf("inst3->value() = %f.\r\n", inst3->value());
+		_cprintf("inst1->value() = %f.\r\n", inst1->value());
+		_cprintf("inst2->value() = %f.\r\n", inst2->value());
+		_cprintf("inst3->value() = %f.\r\n", inst3->value());
 
 		inst1->_assign(static_cast<lv::IInterface*>(inst2));
-		cprintf("After assigned from inst2, inst1->value() = %f.\r\n", inst1->value());
+		_cprintf("After assigned from inst2, inst1->value() = %f.\r\n", inst1->value());
 
 		inst1->_assign_t(inst3);
-		cprintf("After assigned from inst3, inst1->value() = %f.\r\n", inst1->value());
+		_cprintf("After assigned from inst3, inst1->value() = %f.\r\n", inst1->value());
 	}
 	if(inst1)
 	{
@@ -38,5 +38,5 @@ void main()
 		inst3->_release();
 		inst3 = NULL;
 	}
-	getch();
+	_getch();
 };

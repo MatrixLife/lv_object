@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="Example3_UseWeakReference"
 	ProjectGUID="{F628040B-DF11-4E48-8E36-99C89FEB57CE}"
+	RootNamespace="Example3_UseWeakReference"
 	>
 	<Platforms>
 		<Platform
@@ -15,7 +16,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)build_vc8_$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)build\vc8_$(PlatformName)_$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)temporary\$(ProjectName)_vc8_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"
@@ -91,7 +92,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)build_vc8_$(PlatformName)_$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)build\vc8_$(PlatformName)_$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)temporary\$(ProjectName)_vc8_$(PlatformName)_$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"

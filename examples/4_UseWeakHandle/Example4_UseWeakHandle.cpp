@@ -10,14 +10,14 @@ void main()
 		IFloatWP weak_ref(inst);
 		if(weak_ref)// = "if(weak_ref.valid())"
 		{
-			cprintf("weak_ref->_type_id() = %s.\r\n", weak_ref->_type_id());
-			cprintf("weak_ref->value() = %f.\r\n", weak_ref->value());
+			_cprintf("weak_ref->_type_id() = %s.\r\n", weak_ref->_type_id());
+			_cprintf("weak_ref->value() = %f.\r\n", weak_ref->value());
 		}
 
 		inst->_release();
 		inst = NULL;
 
-		if(weak_ref.empty()) cprintf("IFloat weak-reference is invalid.\r\n");
+		if(weak_ref.empty()) _cprintf("IFloat weak-reference is invalid.\r\n");
 	}
-	getch();
+	_getch();
 };
