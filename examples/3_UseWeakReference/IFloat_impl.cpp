@@ -20,9 +20,9 @@ void IFloatImpl::_release()
 {
 	if(this->_ISafeRefs > 1) this->_ISafeRefs-= 1; else delete this;
 }
-const char* IFloatImpl::_type_id()
+const char* IFloatImpl::_type_id() const
 {
-	return "lv.IFloat";
+	return "IFloat";
 }
 bool IFloatImpl::_add_ref_var(lv::IWeakReference** var_ptr)
 {

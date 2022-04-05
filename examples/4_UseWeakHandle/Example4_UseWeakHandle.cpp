@@ -5,7 +5,7 @@ void main()
 	IFloat* inst = NULL;
 	if(IFloatCreateInstance(&inst))
 	{
-		inst->value(1234.5678f);
+		inst->value(123.456f);
 
 		IFloatWP weak_ref(inst);
 		if(weak_ref)// = "if(weak_ref.valid())"

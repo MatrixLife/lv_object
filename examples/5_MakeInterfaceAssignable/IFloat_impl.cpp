@@ -13,9 +13,9 @@ void IFloatImpl::_release()
 {
 	if(this->_IRefs > 1) this->_IRefs-= 1; else delete this;
 }
-const char* IFloatImpl::_type_id()
+const char* IFloatImpl::_type_id() const
 {
-	return "lv.IFloat";
+	return "IFloat";
 }
 bool IFloatImpl::_assign(lv::IInterface* other)
 {

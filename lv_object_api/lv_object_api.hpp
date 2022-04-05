@@ -25,7 +25,7 @@ namespace lv
 	{
 		virtual void _add_ref() = 0;
 		virtual void _release() = 0;
-		virtual const char* _type_id() = 0;
+		virtual const char* _type_id() const = 0;
 	};
 	struct IWeakReference
 	{
@@ -275,7 +275,7 @@ namespace lv
 		{
 			return (this->pointer() < other.pointer());
 		};
-		TObject* operator ->() const { if(this->cp) return dynamic_cast<TObject*>(this->cp->_inst); else return NULL; };
+		TObject* operator ->() const { return (this->cp)? dynamic_cast<TObject*>(this->cp->_inst): NULL; };
 	};
 }
 #endif

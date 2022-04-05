@@ -13,7 +13,7 @@ struct IFloatImpl: public IFloat
 //------------------------------------------------------------------------------
 	void _add_ref();
 	void _release();
-	const char* _type_id();
+	const char* _type_id() const;
 
 //------------------------------------------------------------------------------
 	bool _assign(lv::IInterface*);

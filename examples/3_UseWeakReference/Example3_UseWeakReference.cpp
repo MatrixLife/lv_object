@@ -5,7 +5,7 @@ void main()
 	IFloat* inst = NULL;
 	if(IFloatCreateInstance(&inst))
 	{
-		inst->value(1234.5678f);
+		inst->value(123.456f);
 
 		lv::IWeakReference* weak_ptr = NULL;
 		if(inst->_add_ref_var(&weak_ptr))
