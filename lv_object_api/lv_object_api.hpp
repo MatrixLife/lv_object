@@ -275,7 +275,7 @@ namespace lv
 		{
 			return (this->pointer() < other.pointer());
 		};
-		TObject* operator ->() const { if(this->cp) return dynamic_cast<TObject*>(this->cp->_inst); else return NULL; };
+		TObject* operator ->() const { return (this->cp)? dynamic_cast<TObject*>(this->cp->_inst): NULL; };
 	};
 }
 #endif
