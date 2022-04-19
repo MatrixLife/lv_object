@@ -17,7 +17,7 @@ const char* IFloatImpl::_type_id() const
 {
 	return "IFloat";
 }
-bool IFloatImpl::_assign(lv::IInterface* other)
+bool IFloatImpl::assign(lv::IInterface* other)
 {
 	bool retv = false;
 	if(other)
@@ -31,9 +31,9 @@ bool IFloatImpl::_assign(lv::IInterface* other)
 	}
 	return retv;
 }
-bool IFloatImpl::_assign_t(IFloat* other)
+bool IFloatImpl::assign_t(IFloat* other)
 {
-	return this->_assign(static_cast<lv::IInterface*>(other));
+	return this->assign(static_cast<lv::IInterface*>(other));
 }
 float IFloatImpl::value()
 {

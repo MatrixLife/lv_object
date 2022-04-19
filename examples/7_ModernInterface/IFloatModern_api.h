@@ -1,6 +1,6 @@
 #ifndef __LV_OBJECT_EXAMPLE_IFLOAT_MODERN_INTERFACE
 #define __LV_OBJECT_EXAMPLE_IFLOAT_MODERN_INTERFACE
-#include "lv_object_api.hpp"
+#include "lv_object.hpp"
 
 struct IFloatModern: public lv::object
 {
@@ -9,12 +9,11 @@ struct IFloatModern: public lv::object
 };
 
 #if (__cplusplus >= 201103L) || (_MSC_VER >= 1600)
-#include <memory>
-typedef std::shared_ptr<IFloatModern> IFloatModernHandle;
+typedef std::shared_ptr<IFloatModern> PFloatModern;
 #else
-typedef lv::handle_t<IFloatModern> IFloatModernHandle;
+typedef lv::handle_t<IFloatModern> PFloatModern;
 #endif
 
-IFloatModernHandle IFloatModernCreateInstance();
+PFloatModern IFloatModernCreateInstance();
 
 #endif

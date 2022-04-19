@@ -17,7 +17,7 @@ const char* IFloatImpl::_type_id() const
 {
 	return "IFloat";
 }
-bool IFloatImpl::_clone(lv::IInterface** result)
+bool IFloatImpl::clone(lv::IInterface** result)
 {
 	bool retv = false;
 	if(result && (*result) == NULL)
@@ -30,9 +30,9 @@ bool IFloatImpl::_clone(lv::IInterface** result)
 	}
 	return retv;
 }
-bool IFloatImpl::_clone_t(IFloat** result)
+bool IFloatImpl::clone_t(IFloat** result)
 {
-	return this->_clone((lv::IInterface**)(result));
+	return this->clone((lv::IInterface**)(result));
 }
 float IFloatImpl::value()
 {

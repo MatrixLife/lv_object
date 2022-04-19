@@ -5,23 +5,21 @@ void main()
 	IFloat* inst1 = NULL;
 	IFloat* inst2 = NULL;
 	IFloat* inst3 = NULL;
-	if(IFloatCreateInstance(&inst1) &&
-		IFloatCreateInstance(&inst2) &&
-		IFloatCreateInstance(&inst3))
+	if(IFloatCreateInstance(&inst1) && IFloatCreateInstance(&inst2) && IFloatCreateInstance(&inst3))
 	{
 		inst1->value(0.123f);
 		inst2->value(0.456f);
 		inst3->value(0.789f);
 
-		_cprintf("inst1->value() = %f.\r\n", inst1->value());
-		_cprintf("inst2->value() = %f.\r\n", inst2->value());
-		_cprintf("inst3->value() = %f.\r\n", inst3->value());
+		_cprintf("inst1 = 0x%x, inst1->value() = %f.\r\n", inst1, inst1->value());
+		_cprintf("inst2 = 0x%x, inst2->value() = %f.\r\n", inst2, inst2->value());
+		_cprintf("inst3 = 0x%x, inst3->value() = %f.\r\n", inst3, inst3->value());
 
-		inst1->_assign(static_cast<lv::IInterface*>(inst2));
-		_cprintf("After assigned from inst2, inst1->value() = %f.\r\n", inst1->value());
+		inst1->assign(static_cast<lv::IInterface*>(inst2));
+		_cprintf("After assigned by inst2, inst1->value() = %f.\r\n", inst1->value());
 
-		inst1->_assign_t(inst3);
-		_cprintf("After assigned from inst3, inst1->value() = %f.\r\n", inst1->value());
+		inst1->assign_t(inst3);
+		_cprintf("After assigned by inst3, inst1->value() = %f.\r\n", inst1->value());
 	}
 	if(inst1)
 	{

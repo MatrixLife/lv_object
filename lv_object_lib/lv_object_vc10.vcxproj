@@ -11,10 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lv_object_lib.cpp" />
+    <ClCompile Include="lv_object.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lv_object_api\lv_object_api.hpp" />
+    <ClInclude Include="..\lv_object_api\lv_interface.hpp" />
+    <ClInclude Include="..\lv_object_api\lv_object.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>lv_object</ProjectName>
@@ -55,10 +56,10 @@
       <AdditionalIncludeDirectories>$(SolutionDir)lv_object_api;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;_LIB;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Lib />
     <PostBuildEvent>

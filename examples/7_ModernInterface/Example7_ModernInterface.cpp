@@ -2,7 +2,7 @@
 #include "IFloatModern_api.h"
 void main()
 {
-	IFloatModernHandle inst = IFloatModernCreateInstance();
+	PFloatModern inst = IFloatModernCreateInstance();
 	if(inst)
 	{
 		inst->value(123.456f);

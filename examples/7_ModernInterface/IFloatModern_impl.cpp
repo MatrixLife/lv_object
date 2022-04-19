@@ -17,7 +17,7 @@ void IFloatModernImpl::value(const float value)
 {
 	this->_Value = value;
 }
-IFloatModernHandle IFloatModernCreateInstance()
+PFloatModern IFloatModernCreateInstance()
 {
-	return IFloatModernHandle(new IFloatModernImpl());
+	return PFloatModern(new IFloatModernImpl());
 }

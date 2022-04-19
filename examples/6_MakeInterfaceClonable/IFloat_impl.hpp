@@ -16,8 +16,8 @@ struct IFloatImpl: public IFloat
 	const char* _type_id() const;
 
 //------------------------------------------------------------------------------
-	bool _clone(lv::IInterface**);
-	bool _clone_t(IFloat**);
+	bool clone(lv::IInterface**);
+	bool clone_t(IFloat**);
 
 //------------------------------------------------------------------------------
 	float value();
