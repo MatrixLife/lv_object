@@ -151,7 +151,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\lv_object_lib.cpp"
+				RelativePath=".\lv_interface.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lv_object.cpp"
 				>
 			</File>
 		</Filter>
@@ -161,7 +165,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\lv_object_api\lv_object_api.hpp"
+				RelativePath="..\lv_object_api\lv_interface.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\lv_object_api\lv_object.hpp"
 				>
 			</File>
 		</Filter>

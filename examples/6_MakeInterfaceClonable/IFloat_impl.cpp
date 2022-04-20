@@ -13,26 +13,64 @@ void IFloatImpl::_release()
 {
 	if(this->_IRefs > 1) this->_IRefs-= 1; else delete this;
 }
-const char* IFloatImpl::_type_id() const
+const char* IFloatImpl::_type_id()
 {
 	return "IFloat";
 }
-bool IFloatImpl::clone(lv::IInterface** result)
+bool IFloatImpl::_find_type(const char* id, lv::IInterface** inst)
+{
+	bool retv = IFloat::IInterface::_find_type(id, inst);
+	if((!retv) && (id != NULL))
+	{
+		IInterface* inst_base = NULL;
+		if(::strcmp(id, "IFloat") == 0)
+		{
+			inst_base = static_cast<lv::IInterface*>(static_cast<IFloat*>(this));
+			retv = true;
+		}
+		else if(::strcmp(id, lv::IID_IClonable) == 0)
+		{
+			inst_base = static_cast<lv::IInterface*>(static_cast<lv::IClonable*>(this));
+			retv = true;
+		}
+		else if(::strcmp(id, lv::IID_IClonableT("IFloat")) == 0)
+		{
+			inst_base = static_cast<lv::IInterface*>(static_cast<lv::IClonableT<IFloat>*>(this));
+			retv = true;
+		}
+		if(retv && inst && ((*inst) == NULL))
+		{
+			(*inst) = inst_base;
+			(*inst)->_add_ref();
+		}
+	}
+	return retv;
+}
+bool IFloatImpl::_clone(lv::IInterface** inst)
 {
 	bool retv = false;
-	if(result && (*result) == NULL)
+	if(inst && ((*inst) == NULL))
 	{
 		IFloatImpl* inst_t = new IFloatImpl();
 		inst_t->_Value = this->_Value;
 		inst_t->_IRefs = 1;
-		(*result) = static_cast<lv::IInterface*>(inst_t);
+		(*inst) = static_cast<lv::IInterface*>(static_cast<IFloat*>(inst_t));
 		retv = true;
 	}
 	return retv;
 }
-bool IFloatImpl::clone_t(IFloat** result)
+bool IFloatImpl::_clone(IFloat** inst)
 {
-	return this->clone((lv::IInterface**)(result));
+	bool retv = false;
+	if(inst && ((*inst) == NULL))
+	{
+		IFloatImpl* inst_t = new IFloatImpl();
+		inst_t->_Value = this->_Value;
+		inst_t->_IRefs = 1;
+		(*inst) = static_cast<IFloat*>(inst_t);
+		retv = true;
+	}
+	return retv;
 }
 float IFloatImpl::value()
 {

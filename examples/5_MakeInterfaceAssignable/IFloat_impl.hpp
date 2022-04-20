@@ -2,7 +2,8 @@
 #define __LV_OBJECT_EXAMPLE_IFLOAT_IMPL
 #include "IFloat_api.hpp"
 #include <set>
-struct IFloatImpl: public IFloat
+#include <string>
+struct IFloatImpl: public IFloat, public lv::IAssignable, public lv::IAssignableT<IFloat>
 {
 	size_t _IRefs;
 	float _Value;
@@ -13,11 +14,14 @@ struct IFloatImpl: public IFloat
 //------------------------------------------------------------------------------
 	void _add_ref();
 	void _release();
-	const char* _type_id() const;
+	const char* _type_id();
+	bool _find_type(const char*, IInterface**);
 
 //------------------------------------------------------------------------------
-	bool assign(lv::IInterface*);
-	bool assign_t(IFloat*);
+	bool _assign(lv::IInterface*);
+
+//------------------------------------------------------------------------------
+	bool _assign(IFloat*);
 
 //------------------------------------------------------------------------------
 	float value();

@@ -13,11 +13,23 @@ void main()
 		_cprintf("inst2 = 0x%x.\r\n", inst2);
 		_cprintf("inst3 = 0x%x.\r\n", inst3);
 
-		inst1->clone((lv::IInterface**)(&inst2));
-		_cprintf("After cloned to inst2, inst2 = 0x%x, inst2->value() = %f.\r\n", inst2, inst2->value());
+		lv::IClonable* inst_clone1 = NULL;
+		if(inst1->_find_type<lv::IClonable>("lv.IClonable", &inst_clone1))
+		{
+			inst_clone1->_clone((lv::IInterface**)(&inst2));
+			inst_clone1->_release();
+			inst_clone1 = NULL;
+			_cprintf("After cloned to inst2, inst2 = 0x%x, inst2->value() = %f.\r\n", inst2, inst2->value());
+		}
 
-		inst1->clone_t(&inst3);
-		_cprintf("After cloned to inst3, inst3 = 0x%x, inst3->value() = %f.\r\n", inst2, inst3->value());
+		lv::IClonableT<IFloat>* inst_clone2 = NULL;
+		if(inst1->_find_type<lv::IClonableT<IFloat>>("lv.IClonableT<IFloat>", &inst_clone2))
+		{
+			inst_clone2->_clone(&inst3);
+			inst_clone2->_release();
+			inst_clone2 = NULL;
+			_cprintf("After cloned to inst3, inst3 = 0x%x, inst3->value() = %f.\r\n", inst3, inst3->value());
+		}
 	}
 	if(inst1)
 	{

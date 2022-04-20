@@ -8,7 +8,7 @@ struct IFloat: public lv::IInterface
 	virtual void value(const float) = 0;
 };
 
-typedef lv::TInterfaceHandle<IFloat> IFloatHandle;
+typedef lv::TInterfaceSafePtr<IFloat> IFloatHandle;
 
 IFloatHandle IFloatCreateInstance();
 

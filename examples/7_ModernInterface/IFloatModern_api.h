@@ -11,7 +11,7 @@ struct IFloatModern: public lv::object
 #if (__cplusplus >= 201103L) || (_MSC_VER >= 1600)
 typedef std::shared_ptr<IFloatModern> PFloatModern;
 #else
-typedef lv::handle_t<IFloatModern> PFloatModern;
+typedef lv::safe_ptr<IFloatModern> PFloatModern;
 #endif
 
 PFloatModern IFloatModernCreateInstance();
