@@ -1,34 +1,71 @@
 #ifndef __LV_INTERFACE_FRAMEWORK
 #define __LV_INTERFACE_FRAMEWORK
 #include <stddef.h>
+#include <string>
 namespace lv
 {
+	struct IInterface;
+	struct IWeakReference;
+	struct IAssignable;
+	struct IClonable;
+
+	static const char* IID_IInterface = "lv.IInterface";
+	static const char* IID_IWeakReference = "lv.IWeakReference";
+	static const char* IID_IAssignable = "lv.IAssignable";
+	static const char* IID_IClonable = "lv.IClonable";
+
+	const char* IID_IAssignableT(const char* type_name);
+	const char* IID_IClonableT(const char* type_name);
+
 	struct IInterface
 	{
 		virtual void _add_ref() = 0;
 		virtual void _release() = 0;
-		virtual const char* _type_id() const = 0;
+		virtual const char* _type_id() = 0;
+		virtual bool _find_type(const char* id, IInterface** inst);
+		template<typename IType> bool _find_type(const char* id, IType** inst)
+		{
+			bool retv = false;
+			if(inst && ((*inst) == NULL))
+			{
+				IInterface* inst_base = NULL;
+				if(this->_find_type(id, &inst_base) && inst_base)
+				{
+					if(static_cast<IType*>(inst_base))
+					{
+						(*inst) = static_cast<IType*>(inst_base);
+						retv = true;
+					}
+					else
+					{
+						inst_base->_release();
+						inst_base = NULL;
+					}
+				}
+			}
+			return retv;
+		};
 	};
-	struct IWeakReferencable
+	struct IWeakReference
 	{
-		virtual bool _add_ref_var(IWeakReferencable**) = 0;
-		virtual void _release_var(IWeakReferencable**) = 0;
+		virtual bool _add_ref_var(IWeakReference**) = 0;
+		virtual void _release_var(IWeakReference**) = 0;
 	};
-	struct IAssignable
+	struct IAssignable: public IInterface
 	{
-		virtual bool assign(IInterface*) = 0;
+		virtual bool _assign(IInterface*) = 0;
 	};
-	struct IClonable
+	struct IClonable: public IInterface
 	{
-		virtual bool clone(IInterface**) = 0;
+		virtual bool _clone(IInterface**) = 0;
 	};
-	template<typename IType> struct IAssignableT
+	template<typename IType> struct IAssignableT: public IInterface
 	{
-		virtual bool assign_t(IType*) = 0;
+		virtual bool _assign(IType*) = 0;
 	};
-	template<typename IType> struct IClonableT
+	template<typename IType> struct IClonableT: public IInterface
 	{
-		virtual bool clone_t(IType**) = 0;
+		virtual bool _clone(IType**) = 0;
 	};
 	template<typename IType> struct TInterfaceHandle
 	{
@@ -42,7 +79,7 @@ namespace lv
 		{
 			if(this->ip) this->ip->_add_ref();
 		};
-		TInterfaceHandle(IType* inst_t): ip(dynamic_cast<IInterface*>(inst_t))
+		TInterfaceHandle(IType* inst_t): ip(static_cast<IInterface*>(inst_t))
 		{
 			if(this->ip) this->ip->_add_ref();
 		};
@@ -52,7 +89,7 @@ namespace lv
 		};
 		size_t pointer() const
 		{
-			return (size_t)(dynamic_cast<IType*>(this->ip));
+			return (size_t)(this->ip);
 		};
 		bool empty() const
 		{
@@ -70,37 +107,15 @@ namespace lv
 				this->ip = NULL;
 			}
 		};
-		template<typename IOther> TInterfaceHandle<IOther> cast_t()
-		{
-			TInterfaceHandle<IOther> retv;
-			if(this->cp)
-			{
-				IOther* idst = dynamic_cast<IOther*>(dynamic_cast<IType*>(this->ip));
-				if(idst)
-				{
-					retv.ip = dynamic_cast<IInterface*>(idst);
-					retv.ip->_add_ref();
-				}
-			}
-			return retv;
-		};
 		operator bool() const
 		{
 			return (this->ip != NULL);
 		};
 		TInterfaceHandle& operator =(const TInterfaceHandle& other)
 		{
+			if(this->ip) this->ip->_release();
 			if(other.ip) other.ip->_add_ref();
-			if(this->ip) this->ip->_release();
 			this->ip = other.ip;
-			return (*this);
-		};
-		TInterfaceHandle& operator =(IType* inst_t)
-		{
-			IInterface* inst = dynamic_cast<IInterface*>(inst_t);
-			if(inst) inst->_add_ref();
-			if(this->ip) this->ip->_release();
-			this->ip = inst;
 			return (*this);
 		};
 		bool operator ==(const TInterfaceHandle& other) const
@@ -116,13 +131,27 @@ namespace lv
 			return ((size_t)(this->ip) < (size_t)(other.ip));
 		};
 		IType* operator ->() const { return dynamic_cast<IType*>(this->ip); };
+		template<typename TOther> TInterfaceHandle<TOther> cast() const
+		{
+			TInterfaceHandle<TOther> retv;
+			if(this->ip)
+			{
+				TOther* inst_t = dynamic_cast<TOther*>(this->ip);
+				if(inst_t)
+				{
+					retv.ip = this->ip;
+					retv.ip->_add_ref();
+				}
+			}
+			return retv;
+		};
 	};
 	template<typename IType> struct TWeakReferenceHandle
 	{
 	private:
 		void* operator new(const size_t) throw();
 		void operator delete(void*) throw();
-		IWeakReferencable* ip;
+		IWeakReference* ip;
 	public:
 		TWeakReferenceHandle(): ip(NULL) {};
 		TWeakReferenceHandle(const TWeakReferenceHandle& other): ip(NULL)
@@ -131,7 +160,7 @@ namespace lv
 		};
 		TWeakReferenceHandle(IType* inst_t): ip(NULL)
 		{
-			IWeakReferencable* inst = dynamic_cast<IWeakReferencable*>(inst_t);
+			IWeakReference* inst = dynamic_cast<IWeakReference*>(inst_t);
 			if(inst)
 			{
 				inst->_add_ref_var(&(this->ip));
@@ -171,13 +200,6 @@ namespace lv
 			if(other.ip) other.ip->_add_ref_var(&(this->ip));
 			return (*this);
 		};
-		TWeakReferenceHandle& operator =(IType* inst_t)
-		{
-			IWeakReferencable* inst = dynamic_cast<IWeakReferencable*>(inst_t)
-			if(this->ip) this->ip->_release_var(&(this->ip));
-			if(inst) inst->_add_ref_var(&(this->ip));
-			return (*this);
-		};
 		bool operator ==(const TWeakReferenceHandle& other) const
 		{
 			return (this->ip == other.ip);
@@ -191,6 +213,20 @@ namespace lv
 			return (this->ip < other.ip);
 		};
 		IType* operator ->() const { return static_cast<IType*>(this->ip); };
+		template<typename TOther> TWeakReferenceHandle<TOther> cast() const
+		{
+			TWeakReferenceHandle<TOther> retv;
+			if(this->ip)
+			{
+				TOther* inst_t = dynamic_cast<TOther*>(this->ip);
+				if(inst_t)
+				{
+					retv.ip = this->ip;
+					retv.ip->_add_ref_var(&(retv.ip));
+				}
+			}
+			return retv;
+		};
 	};
 	struct IFactory: public IInterface
 	{

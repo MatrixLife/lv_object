@@ -13,16 +13,45 @@ void IFloatImpl::_release()
 {
 	if(this->_IRefs > 1) this->_IRefs-= 1; else delete this;
 }
-const char* IFloatImpl::_type_id() const
+const char* IFloatImpl::_type_id()
 {
 	return "IFloat";
 }
-bool IFloatImpl::assign(lv::IInterface* other)
+bool IFloatImpl::_find_type(const char* id, IInterface** inst)
+{
+	bool retv = IFloat::IInterface::_find_type(id, inst);
+	if((!retv) && (id != NULL))
+	{
+		IInterface* inst_result = NULL;
+		if(::strcmp(id, "IFloat") == 0)
+		{
+			inst_result = static_cast<lv::IInterface*>(static_cast<IFloat*>(this));
+			retv = true;
+		}
+		else if(::strcmp(id, lv::IID_IAssignable) == 0)
+		{
+			inst_result = static_cast<lv::IInterface*>(static_cast<lv::IAssignable*>(this));
+			retv = true;
+		}
+		else if(::strcmp(id, lv::IID_IAssignableT("IFloat")) == 0)
+		{
+			inst_result = static_cast<lv::IInterface*>(static_cast<lv::IAssignableT<IFloat>*>(this));
+			retv = true;
+		}
+		if(retv && inst && ((*inst) == NULL))
+		{
+			(*inst) = inst_result;
+			(*inst)->_add_ref();
+		}
+	}
+	return retv;
+}
+bool IFloatImpl::_assign(lv::IInterface* other)
 {
 	bool retv = false;
 	if(other)
 	{
-		IFloatImpl* other_t = static_cast<IFloatImpl*>(other);
+		IFloatImpl* other_t = static_cast<IFloatImpl*>(static_cast<IFloat*>(other));
 		if(other_t)
 		{
 			this->_Value = other_t->_Value;
@@ -31,9 +60,9 @@ bool IFloatImpl::assign(lv::IInterface* other)
 	}
 	return retv;
 }
-bool IFloatImpl::assign_t(IFloat* other)
+bool IFloatImpl::_assign(IFloat* other)
 {
-	return this->assign(static_cast<lv::IInterface*>(other));
+	return this->_assign(static_cast<lv::IInterface*>(other));
 }
 float IFloatImpl::value()
 {

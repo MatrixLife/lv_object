@@ -1,171 +1,154 @@
 #ifndef __LV_OBJECT_FRAMEWORK
 #define __LV_OBJECT_FRAMEWORK
-#include <stddef.h>
+#include <exception>
+#include <set>
 namespace lv
 {
 	struct object
 	{
+	protected:
 		explicit object();
+	public:
 		virtual ~object();
-		virtual const char* _type_id() const;
-	};
-	struct factory: public object
-	{
-		explicit factory();
-		virtual ~factory();
-		virtual const char* _type_id() const;
-		virtual short create(const char* iid, object**);
 	};
 	struct ValueType: public object
 	{
 	private:
-		void* operator new(const size_t) throw();
-		void operator delete(void*) throw();
-	public:
+		void* operator new(const size_t);
+		void operator delete(void*);
+	protected:
 		explicit ValueType();
-		virtual ~ValueType();
-		virtual const char* _type_id() const;
 	};
-}
-#if (__cplusplus >= 201103L) || (_MSC_VER >= 1600)
-#include <memory>
-namespace lv
-{
-	struct factory_t: public factory
-	{
-		template<typename IType> std::shared_ptr<IType> create_t(const char* iid, short* error_value)
-		{
-			std::shared_ptr<IType> retv;
-			if(iid)
-			{
-				object* inst = NULL;
-				short err_val = this->create(iid, &inst);
-				if(inst) retv = std::shared_ptr<IType>(static_cast<IType*>(inst))
-				if(error_value) (*error_value) = err_val;
-			}
-			return retv;
-		};
-	};
-	typedef std::shared_ptr<factory_t> PFactory;
-}
-#else
-namespace lv
-{
-	template<typename TObject> struct handle_t
+	struct _Object_Ref_Ctx
 	{
 	private:
-		struct _SafeRefCtx
-		{
-			size_t _refs;
-			object* _inst;
-			_SafeRefCtx(object* inst): _refs(0), _inst(inst) {};
-			_SafeRefCtx(TObject* inst): _refs(0), _inst(dynamic_cast<object*>(inst)) {};
-			~_SafeRefCtx(){ if(this->_inst) delete this->_inst; };
-			void _add_ref(){ this->_refs+= 1; };
-			void _release(){ if(this->_refs > 1) this->_refs-= 1; else delete this; };
-		};
-		_SafeRefCtx* cp;
+		object*                     _inst;
+		size_t                      _srefs;
+		std::set<_Object_Ref_Ctx**> _wrefs;
 	public:
-		handle_t(): cp(NULL) {};
-		handle_t(const handle_t& other): cp(other.cp)
+		_Object_Ref_Ctx(object*);
+		~_Object_Ref_Ctx();
+		void _add_safe_ref();
+		void _add_weak_ref(_Object_Ref_Ctx**);
+		void _safe_release();
+		void _weak_release(_Object_Ref_Ctx**);
+		object* inst() const;
+	};
+	template<typename TObject> struct safe_ptr: public ValueType
+	{
+	private:
+		_Object_Ref_Ctx* i;
+	public:
+		safe_ptr(): i(NULL) {};
+		safe_ptr(const safe_ptr& other): i(other.i)
 		{
-			if(this->cp) this->cp->_add_ref();
+			if(this->i) this->i->_add_safe_ref();
 		};
-		handle_t(object* inst): cp(NULL)
+		safe_ptr(TObject* inst): i(NULL)
 		{
-			if(dynamic_cast<TObject*>(inst))
+			if(static_cast<object*>(inst))
 			{
-				this->cp = new _SafeRefCtx(inst);
-				this->cp->_add_ref();
+				this->i = new _Object_Ref_Ctx(static_cast<object*>(inst));
+				this->i->_add_safe_ref();
 			}
 		};
-		handle_t(TObject* inst): cp(NULL)
+		~safe_ptr()
 		{
-			if(dynamic_cast<object*>(inst))
-			{
-				this->cp = new _SafeRefCtx(inst);
-				this->cp->_add_ref();
-			}
-		};
-		~handle_t()
-		{
-			if(this->cp) this->cp->_release();
+			if(this->i) this->i->_safe_release();
 		};
 		size_t pointer() const
 		{
-			return (this->cp)? (size_t)(this->cp->_inst): NULL;
+			return (this->i)? (size_t)(this->i->inst()): NULL;
 		};
-		bool empty() const
-		{
-			return (this->cp == NULL);
-		};
-		bool valid() const
-		{
-			return (this->cp != NULL);
-		};
+		bool empty() const { return (this->i == NULL); };
+		bool valid() const { return (this->i != NULL); };
 		void clear()
 		{
-			if(this->cp)
+			if(this->i)
 			{
-				this->cp->_release();
-				this->cp = NULL;
+				this->i->_safe_release();
+				this->i = NULL;
 			}
 		};
-		template<typename TOther> handle_t<TOther> cast_t()
+		operator bool() const { return (this->i != NULL); };
+		safe_ptr& operator =(const safe_ptr& other)
 		{
-			handle_t<TOther> retv;
-			if(this->cp)
+			if(this->i) this->i->_safe_release();
+			if(other.i) other.i->_add_safe_ref();
+			this->i = other.i;
+			return (*this);
+		};
+		bool operator ==(const safe_ptr& other) const { return (this->i == other.i); };
+		bool operator !=(const safe_ptr& other) const { return (this->i != other.i); };
+		bool operator <(const safe_ptr& other) const { return (this->i < other.i); };
+		TObject* operator ->() const { return (this->i)? static_cast<TObject*>(this->i->inst()): NULL; };
+		template<typename TOther> safe_ptr<TOther> cast() const
+		{
+			safe_ptr<TOther> retv;
+			if(this->i && this->i->inst())
 			{
-				TOther* idst = dynamic_cast<TOther*>(dynamic_cast<TObject*>(this->cp->_inst));
-				if(idst)
+				TOther* inst_t = dynamic_cast<TOther*>(this->i->inst());
+				if(inst_t)
 				{
-					retv.cp = this->cp;
-					retv.cp->_add_ref();
+					retv.i = this->i;
+					retv.i->_add_safe_ref();
 				}
 			}
 			return retv;
 		};
-		operator bool() const
+	};
+	template<typename TObject> struct weak_ptr: public ValueType
+	{
+	private:
+		_Object_Ref_Ctx* i;
+	public:
+		weak_ptr(): i(NULL) {};
+		weak_ptr(const weak_ptr& other): i(other.i)
 		{
-			return (this->cp != NULL);
+			if(this->i) other.i->_add_weak_ref(&(this->i))
 		};
-		handle_t& operator =(const handle_t& other)
+		weak_ptr(const safe_ptr& sp): i(NULL)
 		{
-			if(other.cp) other.cp->_add_ref();
-			if(this->cp) this->cp->_release();
-			this->cp = other.cp;
+			_Object_Ref_Ctx** pp = (_Object_Ref_Ctx**)(&sp);
+			this->i = (*pp);
+			if(this->i) this->i->_add_weak_ref(&(this->i));
+		};
+		~weak_ptr()
+		{
+			if(this->i) this->i->_weak_release(&(this->i));
+		};
+		size_t pointer() const
+		{
+			return (this->i)? (size_t)(this->i->inst()): NULL;
+		};
+		bool empty() const { return (this->i == NULL); };
+		bool valid() const { return (this->i != NULL); };
+		void clear() { if(this->i) this->i->_weak_release(&(this->i)); };
+		operator bool() const { return (this->i != NULL); };
+		weak_ptr& operator =(const weak_ptr& other)
+		{
+			if(this->i) this->i->_weak_release(&(this->i));
+			if(other.i) other.i->_add_weak_ref(&(this->i));
 			return (*this);
 		};
-		bool operator ==(const handle_t& other) const
+		bool operator ==(const safe_ptr& other) const { return (this->i == other.i); };
+		bool operator !=(const safe_ptr& other) const { return (this->i != other.i); };
+		bool operator <(const safe_ptr& other) const { return (this->i < other.i); };
+		TObject* operator ->() const { return (this->i)? static_cast<TObject*>(this->i->inst()): NULL; };
+		template<typename TOther> weak_ptr<TOther> cast() const
 		{
-			return (this->pointer() == other.pointer());
-		};
-		bool operator !=(const handle_t& other) const
-		{
-			return (this->pointer() != other.pointer());
-		};
-		bool operator <(const handle_t& other) const
-		{
-			return (this->pointer() < other.pointer());
-		};
-		TObject* operator ->() const { return (this->cp)? dynamic_cast<TObject*>(this->cp->_inst): NULL; };
-	};
-	struct factory_t: public factory
-	{
-		template<typename IType> handle_t<IType> create_t(const char* iid, short* error_value)
-		{
-			handle_t<IType> retv;
-			if(iid)
+			weak_ptr<TOther> retv;
+			if(this->i && this->i->inst())
 			{
-				object* inst = NULL;
-				short err_val = this->create(iid, &inst);
-				if(inst) retv = handle_t<IType>(static_cast<IType*>(inst));
-				if(error_value) (*error_value) = err_val;
+				TOther* inst_t = dynamic_cast<TOther*>(this->i->inst());
+				if(inst_t)
+				{
+					retv.i = this->i;
+					retv.i->_add_weak_ref(&(retv.i));
+				}
 			}
 			return retv;
 		};
 	};
-	typedef handle_t<factory_t> PFactory;
 }
-#endif
 #endif

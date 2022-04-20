@@ -12,6 +12,7 @@ struct IFloatImpl: public IFloat
 //------------------------------------------------------------------------------
 	void _add_ref();
 	void _release();
+	bool _find_type(const char*, IInterface**) = 0;
 	const char* _type_id() const;
 
 //------------------------------------------------------------------------------

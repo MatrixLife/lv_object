@@ -2,7 +2,7 @@
 #define __LV_OBJECT_EXAMPLE_IFLOAT_IMPL
 #include "IFloat_api.hpp"
 #include <set>
-struct IFloatImpl: public IFloat
+struct IFloatImpl: public IFloat, public lv::IClonable, public lv::IClonableT<IFloat>
 {
 	size_t _IRefs;
 	float _Value;
@@ -13,11 +13,14 @@ struct IFloatImpl: public IFloat
 //------------------------------------------------------------------------------
 	void _add_ref();
 	void _release();
-	const char* _type_id() const;
+	const char* _type_id();
+	bool _find_type(const char*, lv::IInterface**);
 
 //------------------------------------------------------------------------------
-	bool clone(lv::IInterface**);
-	bool clone_t(IFloat**);
+	bool _clone(lv::IInterface**);
+
+//------------------------------------------------------------------------------
+	bool _clone(IFloat**);
 
 //------------------------------------------------------------------------------
 	float value();
