@@ -8,7 +8,7 @@ struct IFloatModernImpl: public IFloatModern
 	virtual ~IFloatModernImpl();
 
 //------------------------------------------------------------------------------
-//Implement 'IFloat'.
+//Implement 'IFloatModern'.
 //------------------------------------------------------------------------------
 	float value();
 	void value(const float);
