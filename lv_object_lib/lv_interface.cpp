@@ -36,7 +36,7 @@ namespace lv
 	}
 	bool IInterface::_find_type(const char* id, IInterface** inst)
 	{
-		bool retv = (id == NULL) || (::strlen(id) == 0);
+		bool retv = (id == NULL) || (::strlen(id) == 0) || (::strcmp(id, "lv.IInterface") == 0);
 		if(retv && inst && ((*inst) == NULL))
 		{
 			(*inst) = this;

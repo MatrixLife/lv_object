@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>Example2_UseInterfaceHandle</ProjectName>
+    <ProjectName>Example2_UseSafePtr</ProjectName>
     <ProjectGuid>{8232C4F8-BC56-4C07-B7D4-0E4A67F89E49}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -84,7 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Example2_UseInterfaceHandle.cpp" />
+    <ClCompile Include="Example2_UseSafePtr.cpp" />
     <ClCompile Include="IFloat_impl.cpp" />
   </ItemGroup>
   <ItemGroup>

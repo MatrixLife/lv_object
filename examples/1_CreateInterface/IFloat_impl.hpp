@@ -10,13 +10,16 @@ struct IFloatImpl: public IFloat
 	virtual ~IFloatImpl(){};
 
 //------------------------------------------------------------------------------
+// Implement 'lv.IInterface'.
+//------------------------------------------------------------------------------
 	void _add_ref();
 	void _release();
 	const char* _type_id();
-	bool _find_type(const char*, IInterface**);
 
 //------------------------------------------------------------------------------
+// Implement 'IFloat'.
+//------------------------------------------------------------------------------
 	float value();
-	void value(const float);
+	float value(const float);
 };
 #endif

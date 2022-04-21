@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>Example4_UseWeakHandle</ProjectName>
+    <ProjectName>Example4_UseWeakPtr</ProjectName>
     <ProjectGuid>{39E57206-6828-431C-A5CD-CC9CEC468032}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -84,7 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Example4_UseWeakHandle.cpp" />
+    <ClCompile Include="Example4_UseWeakPtr.cpp" />
     <ClCompile Include="IFloat_impl.cpp" />
   </ItemGroup>
   <ItemGroup>

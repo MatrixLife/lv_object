@@ -8,6 +8,8 @@ struct __declspec(novtable) IFloat: public lv::IInterface
 	virtual float value(const float) = 0;
 };
 
-bool IFloatCreateInst(IFloat**);
+typedef lv::TInterfaceSafePtr<IFloat> IFloatSP;
+
+IFloatSP IFloatCreateInst();
 
 #endif

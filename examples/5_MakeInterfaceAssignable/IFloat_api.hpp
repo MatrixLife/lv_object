@@ -8,6 +8,6 @@ struct IFloat: public lv::IInterface
 	virtual void value(const float) = 0;
 };
 
-bool IFloatCreateInstance(IFloat**);
+bool IFloatCreateInst(IFloat**);
 
 #endif

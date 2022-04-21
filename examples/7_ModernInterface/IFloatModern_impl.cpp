@@ -13,7 +13,7 @@ void IFloatModernImpl::value(const float value)
 {
 	this->_Value = value;
 }
-PFloatModern IFloatModernCreateInstance()
+IFloatModernSP IFloatModernCreateInstance()
 {
-	return PFloatModern(static_cast<IFloatModern*>(new IFloatModernImpl()));
+	return IFloatModernSP(static_cast<IFloatModern*>(new IFloatModernImpl()));
 }

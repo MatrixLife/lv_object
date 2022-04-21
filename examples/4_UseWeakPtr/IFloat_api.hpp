@@ -10,6 +10,6 @@ struct IFloat: public lv::IWeakReferencable
 
 typedef lv::TInterfaceWeakPtr<IFloat> IFloatWP;
 
-bool IFloatCreateInstance(IFloat**);
+bool IFloatCreateInst(IFloat**);
 
 #endif

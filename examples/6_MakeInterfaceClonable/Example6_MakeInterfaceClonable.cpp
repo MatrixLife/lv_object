@@ -5,7 +5,7 @@ void main()
 	IFloat* inst1 = NULL;
 	IFloat* inst2 = NULL;
 	IFloat* inst3 = NULL;
-	if(IFloatCreateInstance(&inst1))
+	if(IFloatCreateInst(&inst1))
 	{
 		inst1->value(0.123f);
 
@@ -14,7 +14,7 @@ void main()
 		_cprintf("inst3 = 0x%x.\r\n", inst3);
 
 		lv::IClonable* inst_clone1 = NULL;
-		if(inst1->_find_type<lv::IClonable>("lv.IClonable", &inst_clone1))
+		if(inst1->_find_type<lv::IClonable>(lv::IID_IClonable, &inst_clone1))
 		{
 			inst_clone1->_clone((lv::IInterface**)(&inst2));
 			inst_clone1->_release();
@@ -23,7 +23,7 @@ void main()
 		}
 
 		lv::IClonableT<IFloat>* inst_clone2 = NULL;
-		if(inst1->_find_type<lv::IClonableT<IFloat>>("lv.IClonableT<IFloat>", &inst_clone2))
+		if(inst1->_find_type<lv::IClonableT<IFloat>>(lv::IID_IClonableT("IFloat"), &inst_clone2))
 		{
 			inst_clone2->_clone(&inst3);
 			inst_clone2->_release();

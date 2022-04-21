@@ -20,17 +20,7 @@ float IFloatImpl::value(const float value)
 	this->_Value = value;
 	return this->_Value;
 }
-bool IFloatCreateInst(IFloat** inst)
+IFloatSP IFloatCreateInst()
 {
-	bool retv = false;
-	if(inst)
-	{
-		if((*inst) == NULL)
-		{
-			(*inst) = static_cast<IFloat*>(new IFloatImpl());
-			(*inst)->_add_ref();
-			retv = true;
-		}
-	}
-	return retv;
+	return IFloatSP(static_cast<IFloat*>(new IFloatImpl()));
 }

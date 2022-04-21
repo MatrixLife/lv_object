@@ -9,11 +9,13 @@ struct IFloatModern: public lv::object
 };
 
 #if (__cplusplus >= 201103L) || (_MSC_VER >= 1600)
-typedef std::shared_ptr<IFloatModern> PFloatModern;
+typedef std::shared_ptr<IFloatModern> IFloatModernSP;
+typedef std::weak_ptr<IFloatModern> IFloatModernWP;
 #else
-typedef lv::safe_ptr<IFloatModern> PFloatModern;
+typedef lv::safe_ptr<IFloatModern> IFloatModernSP;
+typedef lv::weak_ptr<IFloatModern> IFloatModernWP;
 #endif
 
-PFloatModern IFloatModernCreateInstance();
+IFloatModernSP IFloatModernCreateInstance();
 
 #endif

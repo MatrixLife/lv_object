@@ -3,21 +3,21 @@
 void main()
 {
 	IFloat* inst = NULL;
-	if(IFloatCreateInstance(&inst))
+	if(IFloatCreateInst(&inst))
 	{
 		inst->value(123.456f);
 
-		lv::IWeakReferencable* weak_ptr = NULL;
-		if(inst->_add_ref_var(&weak_ptr))
+		lv::IWeakReferencable* inst_wp = NULL;
+		if(inst->_add_ref_var(&inst_wp))
 		{
-			_cprintf("weak_ptr->_type_id() = %s.\r\n", static_cast<IFloat*>(weak_ptr)->_type_id());
-			_cprintf("weak_ptr->value() = %f.\r\n", static_cast<IFloat*>(weak_ptr)->value());
+			_cprintf("inst_wp->_type_id() = %s.\r\n", static_cast<IFloat*>(inst_wp)->_type_id());
+			_cprintf("inst_wp->value() = %f.\r\n", static_cast<IFloat*>(inst_wp)->value());
 		}
 
 		inst->_release();
 		inst = NULL;
 
-		if(weak_ptr == NULL) _cprintf("IFloat weak-reference is invalid.\r\n");
+		if(inst_wp == NULL) _cprintf("IFloat weak-reference is invalid.\r\n");
 	}
 	_getch();
 };

@@ -24,30 +24,6 @@ const char* IFloatImpl::_type_id()
 {
 	return "IFloat";
 }
-bool IFloatImpl::_find_type(const char* id, IInterface** inst)
-{
-	bool retv = IFloat::IInterface::_find_type(id, inst);
-	if((!retv) && (id != NULL))
-	{
-		IInterface* inst_base = NULL;
-		if(::strcmp(id, "IFloat") == 0)
-		{
-			inst_base = static_cast<lv::IInterface*>(this);
-			retv = true;
-		}
-		else if(::strcmp(id, lv::IID_IWeakReference) == 0)
-		{
-			inst_base = static_cast<lv::IInterface*>(this);
-			retv = true;
-		}
-		if(retv && inst && ((*inst) == NULL))
-		{
-			(*inst) = inst_base;
-			(*inst)->_add_ref();
-		}
-	}
-	return retv;
-}
 bool IFloatImpl::_add_ref_var(lv::IWeakReferencable** var_ptr)
 {
 	bool retv = false;
@@ -81,7 +57,7 @@ void IFloatImpl::value(const float value)
 {
 	this->_Value = value;
 }
-bool IFloatCreateInstance(IFloat** inst)
+bool IFloatCreateInst(IFloat** inst)
 {
 	bool retv = false;
 	if(inst)

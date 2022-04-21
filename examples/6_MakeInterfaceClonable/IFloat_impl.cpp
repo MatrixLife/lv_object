@@ -80,7 +80,7 @@ void IFloatImpl::value(const float value)
 {
 	this->_Value = value;
 }
-bool IFloatCreateInstance(IFloat** inst)
+bool IFloatCreateInst(IFloat** inst)
 {
 	bool retv = false;
 	if(inst && (*inst) == NULL)
