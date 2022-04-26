@@ -107,7 +107,7 @@ namespace lv
 		{
 			if(this->i) other.i->_add_weak_ref(&(this->i))
 		};
-		weak_ptr(const safe_ptr& sp): i(NULL)
+		weak_ptr(const safe_ptr<TObject>& sp): i(NULL)
 		{
 			_Object_Ref_Ctx** pp = (_Object_Ref_Ctx**)(&sp);
 			this->i = (*pp);
@@ -131,9 +131,9 @@ namespace lv
 			if(other.i) other.i->_add_weak_ref(&(this->i));
 			return (*this);
 		};
-		bool operator ==(const safe_ptr& other) const { return (this->i == other.i); };
-		bool operator !=(const safe_ptr& other) const { return (this->i != other.i); };
-		bool operator <(const safe_ptr& other) const { return (this->i < other.i); };
+		bool operator ==(const weak_ptr& other) const { return (this->i == other.i); };
+		bool operator !=(const weak_ptr& other) const { return (this->i != other.i); };
+		bool operator <(const weak_ptr& other) const { return (this->i < other.i); };
 		TObject* operator ->() const { return (this->i)? static_cast<TObject*>(this->i->inst()): NULL; };
 		template<typename TOther> weak_ptr<TOther> cast() const
 		{

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Example7_ModernInterface.cpp" />
+    <ClCompile Include="Example8_ModernInterfaceObject.cpp" />
     <ClCompile Include="IFloatModern_impl.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -19,11 +19,11 @@
     <ClInclude Include="IFloatModern_impl.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2BDC6168-9767-4965-909E-8B07B36CE3E0}</ProjectGuid>
+    <ProjectGuid>{B03845F3-837B-4DCB-8BC1-80F76B8BA7E5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>
     </RootNamespace>
-    <ProjectName>Example7_ModernInterface</ProjectName>
+    <ProjectName>Example8_ModernInterfaceObject</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

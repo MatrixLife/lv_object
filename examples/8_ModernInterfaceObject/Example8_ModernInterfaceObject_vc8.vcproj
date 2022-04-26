@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Example2_UseSafePtr"
-	ProjectGUID="{8232C4F8-BC56-4C07-B7D4-0E4A67F89E49}"
+	Name="Example8_ModernInterface"
+	ProjectGUID="{F2ECAE22-D8F1-4906-8308-45463AA07972}"
 	>
 	<Platforms>
 		<Platform
@@ -178,11 +178,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Example2_UseSafePtr.cpp"
+				RelativePath=".\Example8_ModernInterfaceObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IFloat_impl.cpp"
+				RelativePath=".\IFloatModern_impl.cpp"
 				>
 			</File>
 		</Filter>
@@ -192,11 +192,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\IFloat_api.hpp"
+				RelativePath=".\IFloatModern_api.h"
 				>
 			</File>
 			<File
-				RelativePath=".\IFloat_impl.hpp"
+				RelativePath=".\IFloatModern_impl.hpp"
 				>
 			</File>
 		</Filter>

@@ -8,7 +8,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example1_CreateInterface", 
 		{6030DDC0-AEC7-4FED-8061-655CAD44784D} = {6030DDC0-AEC7-4FED-8061-655CAD44784D}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example2_UseInterfaceHandle", "examples\2_UseInterfaceHandle\Example2_UseInterfaceHandle_vc8.vcproj", "{8232C4F8-BC56-4C07-B7D4-0E4A67F89E49}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example2_UseSafePtr", "examples\2_UseSafePtr\Example2_UseSafePtr_vc8.vcproj", "{8232C4F8-BC56-4C07-B7D4-0E4A67F89E49}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6030DDC0-AEC7-4FED-8061-655CAD44784D} = {6030DDC0-AEC7-4FED-8061-655CAD44784D}
 	EndProjectSection
@@ -18,7 +18,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example3_UseWeakReference",
 		{6030DDC0-AEC7-4FED-8061-655CAD44784D} = {6030DDC0-AEC7-4FED-8061-655CAD44784D}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example4_UseWeakHandle", "examples\4_UseWeakHandle\Example4_UseWeakHandle_vc8.vcproj", "{39E57206-6828-431C-A5CD-CC9CEC468032}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example4_UseWeakPtr", "examples\4_UseWeakPtr\Example4_UseWeakPtr_vc8.vcproj", "{39E57206-6828-431C-A5CD-CC9CEC468032}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6030DDC0-AEC7-4FED-8061-655CAD44784D} = {6030DDC0-AEC7-4FED-8061-655CAD44784D}
 	EndProjectSection
@@ -33,10 +33,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example6_MakeInterfaceClona
 		{6030DDC0-AEC7-4FED-8061-655CAD44784D} = {6030DDC0-AEC7-4FED-8061-655CAD44784D}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example7_ModernInterface", "examples\7_ModernInterface\Example7_ModernInterface_vc8.vcproj", "{F2ECAE22-D8F1-4906-8308-45463AA07972}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6030DDC0-AEC7-4FED-8061-655CAD44784D} = {6030DDC0-AEC7-4FED-8061-655CAD44784D}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example8_ModernInterface", "examples\8_ModernInterfaceObject\Example8_ModernInterfaceObject_vc8.vcproj", "{F2ECAE22-D8F1-4906-8308-45463AA07972}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Example7_FindHiddenType", "examples\7_FindHiddenType\Example7_FindHiddenType_vc8.vcproj", "{76B8BF0B-7CFC-4F41-AA7C-190408112A36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +75,10 @@ Global
 		{F2ECAE22-D8F1-4906-8308-45463AA07972}.Debug|Win32.Build.0 = Debug|Win32
 		{F2ECAE22-D8F1-4906-8308-45463AA07972}.Release|Win32.ActiveCfg = Release|Win32
 		{F2ECAE22-D8F1-4906-8308-45463AA07972}.Release|Win32.Build.0 = Release|Win32
+		{76B8BF0B-7CFC-4F41-AA7C-190408112A36}.Debug|Win32.ActiveCfg = Debug|Win32
+		{76B8BF0B-7CFC-4F41-AA7C-190408112A36}.Debug|Win32.Build.0 = Debug|Win32
+		{76B8BF0B-7CFC-4F41-AA7C-190408112A36}.Release|Win32.ActiveCfg = Release|Win32
+		{76B8BF0B-7CFC-4F41-AA7C-190408112A36}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

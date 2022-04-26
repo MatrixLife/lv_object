@@ -2,9 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Example7_ModernInterface"
-	ProjectGUID="{F2ECAE22-D8F1-4906-8308-45463AA07972}"
-	RootNamespace="Example7_ModernInterface"
+	Name="Example7_FindHiddenType"
+	ProjectGUID="{76B8BF0B-7CFC-4F41-AA7C-190408112A36}"
 	>
 	<Platforms>
 		<Platform
@@ -40,7 +39,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)lv_object_api&quot;"
-				PreprocessorDefinitions="_DEBUG;_WIN32;_WINDOWS"
+				PreprocessorDefinitions="_DEBUG;_WIN32"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				WarningLevel="4"
@@ -88,6 +87,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -120,7 +120,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="&quot;$(SolutionDir)lv_object_api&quot;"
-				PreprocessorDefinitions="NDEBUG;_WIN32;_WINDOWS"
+				PreprocessorDefinitions="NDEBUG;_WIN32"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="4"
@@ -167,6 +167,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>
@@ -179,11 +180,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Example7_ModernInterface.cpp"
+				RelativePath=".\Example7_FindHiddenType.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IFloatModern_impl.cpp"
+				RelativePath=".\HighPrecisionNumber_impl.cpp"
 				>
 			</File>
 		</Filter>
@@ -193,11 +194,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\IFloatModern_api.h"
+				RelativePath=".\HighPrecisionNumber_impl.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IFloatModern_impl.hpp"
+				RelativePath=".\IDouble_api.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IFloat_api.hpp"
 				>
 			</File>
 		</Filter>

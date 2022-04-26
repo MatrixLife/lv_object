@@ -2,9 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Example4_UseWeakHandle"
+	Name="Example4_UseWeakPtr"
 	ProjectGUID="{39E57206-6828-431C-A5CD-CC9CEC468032}"
-	RootNamespace="Example4_UseWeakHandle"
 	>
 	<Platforms>
 		<Platform
@@ -179,7 +178,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Example4_UseWeakHandle.cpp"
+				RelativePath=".\Example4_UseWeakPtr.cpp"
 				>
 			</File>
 			<File
