@@ -3,7 +3,7 @@
 #include "IFloat_api.hpp"
 #include <set>
 #include <string>
-struct IFloatImpl: public IFloat, public lv::IAssignable, public lv::IAssignableT<IFloat>
+struct IFloatImpl: public IFloat, public lv::IAssign, public lv::IAssignT<IFloat>
 {
 	size_t _IRefs;
 	float _Value;

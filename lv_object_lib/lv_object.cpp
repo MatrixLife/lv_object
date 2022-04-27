@@ -1,9 +1,40 @@
-#include "lv_interface.hpp"
 #include "lv_object.hpp"
-#include <exception>
-#include <string>
 namespace lv
 {
+	std::string IID_IAssignT(const char* t_name)
+	{
+		std::string retv("lv.IAssignT");
+		if(t_name && ::strlen(t_name))
+		{
+			retv.append(1, '<');
+			retv.append(t_name);
+			retv.append(1, '>');
+		}
+		return retv;
+	}
+	std::string IID_ICloneT(const char* t_name)
+	{
+		std::string retv("lv.ICloneT");
+		if(t_name && ::strlen(t_name))
+		{
+			retv.append(1, '<');
+			retv.append(t_name);
+			retv.append(1, '>');
+		}
+		return retv;
+	}
+	std::string IID_IEqualT(const char* t_name)
+	{
+		std::string retv("lv.IEqualT");
+		if(t_name && ::strlen(t_name))
+		{
+			retv.append(1, '<');
+			retv.append(t_name);
+			retv.append(1, '>');
+		}
+		return retv;
+	}
+
 	object::object(){}
 	object::~object(){}
 
@@ -57,5 +88,16 @@ namespace lv
 	object* _Object_Ref_Ctx::inst() const
 	{
 		return this->_inst;
+	}
+
+	bool IInterface::_find_type(const char* id, IInterface** inst)
+	{
+		bool retv = (id == NULL) || (::strlen(id) == 0) || (::strcmp(id, "lv.IInterface") == 0);
+		if(retv && inst && ((*inst) == NULL))
+		{
+			(*inst) = this;
+			(*inst)->_add_ref();
+		}
+		return retv;
 	}
 }

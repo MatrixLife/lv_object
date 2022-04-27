@@ -1,6 +1,6 @@
 #ifndef __LV_OBJECT_EXAMPLE_IDOUBLE_INTERFACE
 #define __LV_OBJECT_EXAMPLE_IDOUBLE_INTERFACE
-#include "lv_interface.hpp"
+#include "lv_object.hpp"
 
 struct __declspec(novtable) IDouble: public lv::IInterface
 {

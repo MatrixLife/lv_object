@@ -5,7 +5,7 @@
 struct IFloatImpl: public IFloat
 {
 	size_t _ISafeRefs;
-	std::set<lv::IWeakReferencable**> _IWeakRefs;
+	std::set<lv::IWeakReference**> _IWeakRefs;
 	float _Value;
 
 	explicit IFloatImpl();
@@ -17,8 +17,8 @@ struct IFloatImpl: public IFloat
 	const char* _type_id();
 
 //------------------------------------------------------------------------------
-	bool _add_ref_var(lv::IWeakReferencable**);
-	void _release_var(lv::IWeakReferencable**);
+	bool _add_ref_var(lv::IWeakReference**);
+	void _release_var(lv::IWeakReference**);
 
 //------------------------------------------------------------------------------
 	float value();

@@ -7,7 +7,7 @@ void main()
 	{
 		inst->value(123.456f);
 
-		lv::IWeakReferencable* inst_wp = NULL;
+		lv::IWeakReference* inst_wp = NULL;
 		if(inst->_add_ref_var(&inst_wp))
 		{
 			_cprintf("inst_wp->_type_id() = %s.\r\n", static_cast<IFloat*>(inst_wp)->_type_id());

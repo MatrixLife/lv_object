@@ -2,7 +2,7 @@
 #define __LV_OBJECT_EXAMPLE_IFLOAT_IMPL
 #include "IFloat_api.hpp"
 #include <set>
-struct IFloatImpl: public IFloat, public lv::IClonable, public lv::IClonableT<IFloat>
+struct IFloatImpl: public IFloat, public lv::IClone, public lv::ICloneT<IFloat>
 {
 	size_t _IRefs;
 	float _Value;

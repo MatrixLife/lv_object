@@ -11,11 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lv_interface.cpp" />
     <ClCompile Include="lv_object.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lv_object_api\lv_interface.hpp" />
     <ClInclude Include="..\lv_object_api\lv_object.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

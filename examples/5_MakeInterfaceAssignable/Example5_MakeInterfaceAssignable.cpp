@@ -15,8 +15,8 @@ void main()
 		_cprintf("inst2 = 0x%x, inst2->value() = %f.\r\n", inst2, inst2->value());
 		_cprintf("inst3 = 0x%x, inst3->value() = %f.\r\n", inst3, inst3->value());
 
-		lv::IAssignable* inst_assign1 = NULL;
-		if(inst1->_find_type<lv::IAssignable>(lv::IID_IAssignable, &inst_assign1))
+		lv::IAssign* inst_assign1 = NULL;
+		if(inst1->_find_type<lv::IAssign>(lv::IID_IAssign, &inst_assign1))
 		{
 			inst_assign1->_assign(static_cast<lv::IInterface*>(inst2));
 			inst_assign1->_release();
@@ -24,8 +24,8 @@ void main()
 			_cprintf("After assigned by inst2, inst1->value() = %f.\r\n", inst1->value());
 		}
 
-		lv::IAssignableT<IFloat>* inst_assign2 = NULL;
-		if(inst1->_find_type<lv::IAssignableT<IFloat>>(lv::IID_IAssignableT("IFloat"), &inst_assign2))
+		lv::IAssignT<IFloat>* inst_assign2 = NULL;
+		if(inst1->_find_type<lv::IAssignT<IFloat>>(lv::IID_IAssignT("IFloat").c_str(), &inst_assign2))
 		{
 			inst_assign2->_assign(inst3);
 			inst_assign2->_release();

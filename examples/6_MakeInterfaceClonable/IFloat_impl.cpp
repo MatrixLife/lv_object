@@ -28,14 +28,14 @@ bool IFloatImpl::_find_type(const char* id, lv::IInterface** inst)
 			inst_base = static_cast<lv::IInterface*>(static_cast<IFloat*>(this));
 			retv = true;
 		}
-		else if(::strcmp(id, lv::IID_IClonable) == 0)
+		else if(::strcmp(id, lv::IID_IClone) == 0)
 		{
-			inst_base = static_cast<lv::IInterface*>(static_cast<lv::IClonable*>(this));
+			inst_base = static_cast<lv::IInterface*>(static_cast<lv::IClone*>(this));
 			retv = true;
 		}
-		else if(::strcmp(id, lv::IID_IClonableT("IFloat")) == 0)
+		else if(::strcmp(id, lv::IID_ICloneT("IFloat").c_str()) == 0)
 		{
-			inst_base = static_cast<lv::IInterface*>(static_cast<lv::IClonableT<IFloat>*>(this));
+			inst_base = static_cast<lv::IInterface*>(static_cast<lv::ICloneT<IFloat>*>(this));
 			retv = true;
 		}
 		if(retv && inst && ((*inst) == NULL))
